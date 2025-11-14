@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                {% for bank in banks[0] %}
+                    <th scope="col">{{bank.id | upper }}</th>
+                    <th scope="col">{{bank.name | upper }}</th>
+                    <th scope="col">{{bank.website | upper }}</th>
+                {% endfor %}
+                <th scope="col">DELETE</th>
+                <th scope="col">UPDATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bank in banks %}
+            <tr>
+                <td>{{ bank.id }}</td>
+                <td>{{ bank.name }}</td>
+                <td><a href="{{ bank.website }}" target="_blank">{{ bank.website }}</a></td>
+                <td>
+                    <form method="GET" action="/banks/{{ bank.id }}">
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

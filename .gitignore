@@ -1,0 +1,78 @@
+# === Virtual Environments ===
+# Standard virtual environment folders
+.venv/
+venv/
+env/
+
+# === Python Cache & Bytecode ===
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# === Development Tool Caches ===
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# coverage
+.coverage
+.coverage.*
+htmlcov/
+
+# === Secrets & Configuration ===
+# Ignore local environment variables files.
+# IMPORTANT: Add any other files you use to store sensitive keys!
+.env
+*.env
+
+# Allow example/template .env files to be versioned
+!.env.example
+!.env.template
+
+# Private keys
+*.pem
+
+# === IDE & Editor Files ===
+# Visual Studio Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# === Build & Distribution ===
+# Standard Python build artifacts
+build/
+dist/
+*.egg-info/
+*.whl
+
+# === Database Files ===
+# Local database files (e.g., development SQLite)
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# === Log Files ===
+# Any files with a .log extension
+*.log
+logs/
+
+# === Operating System Files ===
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
