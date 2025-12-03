@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from typing import List
 
-from ..models import Bank, InterestRate
+from ..models import Bank, BankProduct
 from ..database import engine
 from ..config import templates
 

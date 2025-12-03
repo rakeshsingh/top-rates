@@ -51,7 +51,7 @@ class InterestCompoundingFrequency(str, Enum):
 
 class Bank(SQLModel, table=True):
     """Bank or financial institution"""
-    __table_name__ = "banks"
+    __tablename__: str = "banks"
     id: str = Field(primary_key=True, description="Unique identifier for the bank")
     name: str = Field(..., description="Official name of the bank")
     old_name: str = Field(
@@ -90,38 +90,24 @@ class Bank(SQLModel, table=True):
     )
 
 
-class FinancialProduct(SQLModel, table=True):
+class BankProduct(SQLModel, table=True):
+    """Products offered by a Bank or a Financial Institution"""
+    __tablename__: str = "bank_products"
     id: Optional[int] = Field(default=None, primary_key=True)
     bank_id: str = Field(..., description="Unique identifier for the bank")
     bank_name: Optional[str] = Field(..., description="Name of the bank offering this product")
     bank_website: Optional[str] = Field(..., description="Website of the bank offering this interest rate")
-    
-    product_type: ProductType = Field(..., description="Type of financial product")
-    product_name: str = Field(..., description="Name of the financial product")
+    name: str = Field(..., description="Name of the financial product")
+    type: ProductType = Field(..., description="Type of financial product")
+    description: Optional[str] = Field(None, description="Description of the financial product")
+    product_url: Optional[str] = Field(None, description="URL to the product")
     apy: Decimal = Field(..., description="Annual Percentage Yield (APY) as a decimal")
-    rate_start_date: date = Field(..., description="Date when the rate became effective")
-    rate_end_date: Optional[date] = Field(None, description="Date when the rate expires, if applicable")
+    min_deposit: Optional[Decimal] = Field(None, description="Minimum balance required to earn this interest rate")
+    min_balance: Optional[Decimal] = Field(None,description="Maximum balance for which this interest rate applies")
     compounding_frequency: InterestCompoundingFrequency = Field(..., description="How often interest is compounded")
-    cd_term: Optional[CDTerm] = Field(None,
-        description="Term length for Certificate of Deposit (CD) accounts"
-    )
-    minimum_balance: Optional[Decimal] = Field(
-        None,
-        description="Minimum balance required to earn this interest rate"
-    )
-    maximum_balance: Optional[Decimal] = Field(
-        None,
-        description="Maximum balance for which this interest rate applies"
-    )
-    additional_details: Optional[str] = Field(
-        None,
-        description="Additional details about this product interest rate"
-    )
-    last_updated: datetime = Field(
-        default_factory=datetime.utcnow,
-        description="When this interest rate was last updated"
-    )
-    created_at: datetime = Field(
-        default_factory=datetime.utcnow,
-        description="When this interest rate record was created"
-    )
+    interest_payment_frequency: Optional[InterestCompoundingFrequency] = Field(None, description="How often interest is paid out to the account holder")
+    additional_info: Optional[str] = Field(None,description="Additional details about this product interest rate")
+    start_date: date = Field(..., description="Date when the rate became effective")
+    end_date: Optional[date] = Field(None, description="Date when the rate expires, if applicable")
+    created_at: datetime = Field(default_factory=datetime.utcnow,description="When this interest rate record was created")
+    last_updated: datetime = Field(default_factory=datetime.utcnow,description="When this interest rate was last updated")

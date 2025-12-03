@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from typing import List
-from ..models import Bank, InterestRate
+from ..models import Bank, BankProduct
 from ..database import engine
 
 router = APIRouter()
 
 router = APIRouter(
     prefix="/api/v1",
-    tags=["api", "banks"],
+    tags=["api", "banks", "bank products", "interest rates"],
     responses={404: {"description": "Not found"}},
 )
 
@@ -26,8 +26,8 @@ def get_bank(bank_id: str):
             raise HTTPException(status_code=404, detail="Bank not found")
         return bank
     
-@router.get("/interest-rates/", response_model=List[InterestRate], tags=["interest rates"])
-def get_interest_rates():
+@router.get("/bank-products/", response_model=List[BankProduct], tags=["bank products", "interest rates"])
+def get_bank_products():
     with Session(engine) as session:
-        rates = session.exec(select(InterestRate).limit(100)).all()
-        return rates
+        product = session.exec(select(BankProduct).limit(100)).all()
+        return product

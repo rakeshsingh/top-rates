@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from typing import List, Optional
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
-from .models import Bank, InterestRate
+from .models import Bank, BankProduct
 from .routers import api, banks
 from .database import engine
 from .config import templates
