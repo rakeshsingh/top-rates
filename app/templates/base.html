@@ -3,13 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top Interest Rates App</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <title>{% block title %}Bank Interest Rates{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        main {
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        {% block extra_css %}{% endblock %}
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Top Rates @ USA </div>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/checking">Checking</a></li>
+                    <li><a href="/savings">Savings</a></li>
+                    <li><a href="/high-yield">High Yield</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <div class="container">
-          {% block content %}
-          {% endblock %}
-    </div>
+        <h3> 
+            Find the Best Rates for Savings, Checking, CDs, and More products from US Banks, and Credit Unions.  Compare top offers updated daily to maximize your earnings. Data is updated regularly to ensure you have access to the latest rates available in the market.
+        </h3>
+        </div>
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; {{ current_year|default(2025) }} BankRate. All rates are subject to change. Member FDIC.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
+                Rates updated: {{ last_updated|default('November 14, 2025') }}
+            </p>
+        </div>
+    </footer>
+    
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

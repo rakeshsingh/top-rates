@@ -6,7 +6,7 @@ from enum import Enum
 from decimal import Decimal
 
 
-class AccountType(str, Enum):
+class ProductType(str, Enum):
     """Types of bank accounts"""
     SAVINGS = "savings"
     CHECKING = "checking"
@@ -90,14 +90,29 @@ class Bank(SQLModel, table=True):
     )
 
 
-class InterestRate(SQLModel, table=True):
+class FinancialProduct(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     bank_id: str = Field(..., description="Unique identifier for the bank")
-    account_type: AccountType = Field(..., description="Type of account for this interest rate")
+    bank_name: Optional[str] = Field(..., description="Name of the bank offering this product")
+    bank_website: Optional[str] = Field(..., description="Website of the bank offering this interest rate")
+    
+    product_type: ProductType = Field(..., description="Type of financial product")
+    product_name: str = Field(..., description="Name of the financial product")
     apy: Decimal = Field(..., description="Annual Percentage Yield (APY) as a decimal")
     rate_start_date: date = Field(..., description="Date when the rate became effective")
     rate_end_date: Optional[date] = Field(None, description="Date when the rate expires, if applicable")
-    compounding_frequency: InterestCompoundingFrequency
+    compounding_frequency: InterestCompoundingFrequency = Field(..., description="How often interest is compounded")
+    cd_term: Optional[CDTerm] = Field(None,
+        description="Term length for Certificate of Deposit (CD) accounts"
+    )
+    minimum_balance: Optional[Decimal] = Field(
+        None,
+        description="Minimum balance required to earn this interest rate"
+    )
+    maximum_balance: Optional[Decimal] = Field(
+        None,
+        description="Maximum balance for which this interest rate applies"
+    )
     additional_details: Optional[str] = Field(
         None,
         description="Additional details about this product interest rate"
